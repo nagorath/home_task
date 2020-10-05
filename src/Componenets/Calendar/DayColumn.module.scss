@@ -1,0 +1,26 @@
+.day_column_container{
+    height: 100%;
+    background-color: skyblue;
+    display: flex;
+    flex: 1;
+    border: 3px solid black;
+    flex-direction: column;
+    .date_container{
+        height: 10%;
+        background-color: slateblue;
+        border-bottom: 3px solid black;
+        font-size: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .time_slot{
+        width: 100%;
+        display: flex;
+        flex: 1;
+        border-bottom: 3px solid black;
+        padding-left: 6px;
+        padding-top: 6px;
+        cursor: pointer;
+    }
+}

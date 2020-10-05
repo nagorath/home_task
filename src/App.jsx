@@ -4,6 +4,7 @@ import styles from './App.module.scss';
 // ----Components --- //
 import Logo from './static/Logo.png';
 import profilePic from './static/Profile pic.jpg';
+import Calendar from './Componenets/Calendar/Calendar';
 
 class App extends React.Component {
   constructor(props) {
@@ -31,7 +32,7 @@ class App extends React.Component {
         <div className={styles.content_wrapper}>
           <h1>Hair Saloon Schedule</h1>
           <div className={styles.calendar_container}>
-            asd
+            <Calendar />
           </div>
         </div>
       </div>

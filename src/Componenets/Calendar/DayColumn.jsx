@@ -1,0 +1,26 @@
+import React from 'react';
+import styles from './DayColumn.module.scss';
+
+// Daily time slots
+const DAILY_TIME_SLOTS = ['09:00 - 10:00', '10:00 - 11:00', '11:00 - 12:00', '12:00 - 13:00', '13:00 - 14:00', '14:00 - 15:00', '15:00 - 16:00', '16:00 - 17:00'];
+
+const TimeSlot = ({ hour }) => (
+  <div className={styles.time_slot}>
+    {hour}
+  </div>
+);
+
+const DayColumn = ({ date }) => (
+  <div className={styles.day_column_container}>
+    <div className={styles.date_container}>
+      {date}
+    </div>
+    {
+        DAILY_TIME_SLOTS.map((slot) => (
+          <TimeSlot hour={slot} isTaken={false} />
+        ))
+    }
+  </div>
+);
+
+export default DayColumn;
