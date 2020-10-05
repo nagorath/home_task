@@ -6,7 +6,9 @@ const DAILY_TIME_SLOTS = ['09:00 - 10:00', '10:00 - 11:00', '11:00 - 12:00', '12
 
 const TimeSlot = ({ hour }) => (
   <div className={styles.time_slot}>
+      <div className={styles.time_slot_content}>
     {hour}
+      </div>
   </div>
 );
 

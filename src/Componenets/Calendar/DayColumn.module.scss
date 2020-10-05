@@ -1,18 +1,18 @@
 .day_column_container{
     height: 100%;
-    background-color:#f1f3de;
     display: flex;
     flex: 1;
-    border: 3px solid black;
+    border: 2px solid black;
     border-right: 0;
     flex-direction: column;
     &:last-child{
-        border-right: 3px solid black;
+        border-right: 2px solid black;
     }
+    
     .date_container{
         height: 10%;
         background-color: #ec0101;
-        border-bottom: 3px solid black;
+        border-bottom: 2px solid black;
         font-size: 20px;
         display: flex;
         justify-content: center;
@@ -21,12 +21,21 @@
     }
     .time_slot{
         width: 100%;
-        display: flex;
         flex: 1;
-        border-bottom: 3px solid black;
-        padding-left: 6px;
-        padding-top: 6px;
+        border-bottom: 2px solid black;
         cursor: pointer;
+        .time_slot_content{
+            height: 100%;
+            display: flex;
+            padding-left: 6px;
+            padding-top: 6px;
+            opacity: 0.5;
+            transition: all 0.25s ease-in;
+            &:hover{
+                opacity: 1;
+                background-color: #bdbdbd;
+            }
+        }
         &:last-child{
             border-bottom: 0;
         }
