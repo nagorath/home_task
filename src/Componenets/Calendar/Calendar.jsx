@@ -1,21 +1,55 @@
 import React from 'react';
 // ----Styles----//
-import { Button } from 'semantic-ui-react';
+import { Button, Input } from 'semantic-ui-react';
 import styles from './Calendar.module.scss';
 // ----Components--- //
 import DayColumn from './DayColumn';
-// Days Column
+
+// Consts & Dicts //
 const DAYS = [1, 2, 3, 4, 5, 6, 7];
 
-const currentDate = new Date();
+// Help Functions //
+const dateToInputValue = (date) => {
+  const year = date.getFullYear();
+  let month = (date.getMonth() + 1).toString();
+  month = (month.length > 1) ? month : `0${month}`;
+  let day = date.getDate().toString();
+  day = (day.length > 1) ? day : `0${day}`;
+  return (
+    `${year}-${month}-${day}`
+  );
+};
+
+const inputValueToDate = (date) => {
+  const formattedDate = new Date();
+  const data = date.split('-');
+  const year = data[0];
+  const month = data[1];
+  const day = data[2];
+  formattedDate.setFullYear(year);
+  formattedDate.setMonth(month - 1);
+  formattedDate.setDate(day);
+  return formattedDate;
+};
 
 class Calendar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      test: 1,
       currentDate: new Date(),
     };
+  }
+
+  changeWeek(action) {
+    const { currentDate } = this.state;
+    const dateDifference = (action === 'next') ? 7 : -7;
+    const currentDateClone = new Date(currentDate.getTime());
+    const newDate = new Date(currentDateClone.setDate(currentDateClone.getDate() + dateDifference));
+    this.setState({ currentDate: newDate });
+  }
+
+  setCurrentDate(inputValue) {
+    this.setState({ currentDate: inputValueToDate(inputValue) });
   }
 
   render() {
@@ -23,14 +57,31 @@ class Calendar extends React.Component {
     return (
       <div className={styles.calendar_container}>
         <div className={styles.weeks_nav_btn_container}>
-          <Button className={styles.week_nav_btn}> Previous Week </Button>
-          <Button className={styles.week_nav_btn}> Next Week </Button>
+          <Input
+            type="date"
+            className={styles.week_nav_btn}
+            onChange={(e) => this.setCurrentDate(e.currentTarget.value)}
+            value={dateToInputValue(currentDate)}
+          />
+          <Button
+            className={styles.week_nav_btn}
+            onClick={() => this.changeWeek('back')}
+          >
+            Previous Week
+          </Button>
+          <Button
+            className={styles.week_nav_btn}
+            onClick={() => this.changeWeek('next')}
+          >
+            Next Week
+          </Button>
         </div>
         <div className={styles.days_column_container}>
           {DAYS.map((day, i) => {
-            const date = currentDate.setDate(currentDate.getDate() + i);
+            const currentDateClone = new Date(currentDate.getTime());
+            const newDate = new Date(currentDateClone.setDate(currentDateClone.getDate() + i));
             return (
-              <DayColumn date={date} />
+              <DayColumn date={newDate} key={`dayColumn_${i}`} />
             );
           })}
         </div>

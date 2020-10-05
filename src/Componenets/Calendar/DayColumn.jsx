@@ -13,11 +13,11 @@ const TimeSlot = ({ hour }) => (
 const DayColumn = ({ date }) => (
   <div className={styles.day_column_container}>
     <div className={styles.date_container}>
-      {date}
+      {date.toDateString()}
     </div>
     {
-        DAILY_TIME_SLOTS.map((slot) => (
-          <TimeSlot hour={slot} isTaken={false} />
+        DAILY_TIME_SLOTS.map((slot,i) => (
+          <TimeSlot hour={slot} isTaken={false} key={`timeslot_${i}`}/>
         ))
     }
   </div>
