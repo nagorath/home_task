@@ -1,18 +1,23 @@
 .day_column_container{
     height: 100%;
-    background-color: skyblue;
+    background-color:#f1f3de;
     display: flex;
     flex: 1;
     border: 3px solid black;
+    border-right: 0;
     flex-direction: column;
+    &:last-child{
+        border-right: 3px solid black;
+    }
     .date_container{
         height: 10%;
-        background-color: slateblue;
+        background-color: #ec0101;
         border-bottom: 3px solid black;
         font-size: 20px;
         display: flex;
         justify-content: center;
         align-items: center;
+        color: #ebebeb;
     }
     .time_slot{
         width: 100%;
@@ -22,5 +27,8 @@
         padding-left: 6px;
         padding-top: 6px;
         cursor: pointer;
+        &:last-child{
+            border-bottom: 0;
+        }
     }
 }
