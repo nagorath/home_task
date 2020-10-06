@@ -5,17 +5,34 @@ import styles from './App.module.scss';
 import Logo from './static/Logo.png';
 import profilePic from './static/Profile pic.jpg';
 import Calendar from './Componenets/Calendar/Calendar';
+import FAKE_APPOINTMENTS from './Fake data/Appointments';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       currentUser: 'James',
+      appointments: [],
     };
   }
 
+  componentDidMount() {
+    const storedAppointments = JSON.parse(localStorage.getItem('appointments'));
+    const appointments = !storedAppointments
+      ? [...FAKE_APPOINTMENTS]
+      : storedAppointments;
+    this.setState({ appointments });
+  }
+
+  addNewAppointment(appointment) {
+    const { appointments } = this.state;
+    const newAppointmentsArray = [...appointments, appointment];
+    localStorage.setItem('appointments', JSON.stringify(newAppointmentsArray));
+    this.setState({ appointments: newAppointmentsArray });
+  }
+
   render() {
-    const { currentUser } = this.state;
+    const { currentUser, appointments } = this.state;
     return (
       <div className={styles.site_container}>
         <div className={styles.nav_bar_container}>
@@ -32,7 +49,11 @@ class App extends React.Component {
         <div className={styles.content_wrapper}>
           <h1>Hair Saloon Schedule</h1>
           <div className={styles.calendar_container}>
-            <Calendar />
+            <Calendar
+              currentUser={currentUser}
+              addNewAppointment={(e) => this.addNewAppointment(e)}
+              appointments={appointments}
+            />
           </div>
         </div>
       </div>

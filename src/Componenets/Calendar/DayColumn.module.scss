@@ -42,4 +42,25 @@
             border-bottom: 0;
         }
     }
+    .time_slot_taken{
+        width: 100%;
+        flex: 1;
+        border-bottom: 2px solid black;
+        background-color: #E55050; 
+        &.taken_by_user{
+            background-color: #7BE550;
+        }
+        .time_slot_content{
+            height: 100%;
+            display: flex;
+            padding-left: 6px;
+            padding-top: 6px;
+            opacity: 0.5;
+            font-size: 12px;
+        }
+        &:last-child{
+            border-bottom: 0;
+        }
+
+    }
 }
