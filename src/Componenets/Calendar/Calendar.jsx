@@ -4,6 +4,7 @@ import { Button, Input } from 'semantic-ui-react';
 import styles from './Calendar.module.scss';
 // ----Components--- //
 import DayColumn from './DayColumn';
+import AppointmentModal from './AppointmentModal';
 
 // Consts & Dicts //
 const DAYS = [1, 2, 3, 4, 5, 6, 7];
@@ -37,6 +38,10 @@ class Calendar extends React.Component {
     super(props);
     this.state = {
       currentDate: new Date(),
+      isModalOpen: false,
+      clickedTimeSlotTime: '',
+      clickedTimeSlotDate: '',
+
     };
   }
 
@@ -52,8 +57,16 @@ class Calendar extends React.Component {
     this.setState({ currentDate: inputValueToDate(inputValue) });
   }
 
+  toggleModal(clickedTimeSlotTime, clickedTimeSlotDate) {
+    const { isModalOpen } = this.state;
+    this.setState({ isModalOpen: !isModalOpen, clickedTimeSlotTime, clickedTimeSlotDate });
+  }
+
   render() {
-    const { currentDate } = this.state;
+    const {
+      currentDate, isModalOpen, clickedTimeSlotTime, clickedTimeSlotDate,
+    } = this.state;
+    const { addNewAppointment, currentUser, appointments } = this.props;
     return (
       <div className={styles.calendar_container}>
         <div className={styles.weeks_nav_btn_container}>
@@ -81,10 +94,23 @@ class Calendar extends React.Component {
             const currentDateClone = new Date(currentDate.getTime());
             const newDate = new Date(currentDateClone.setDate(currentDateClone.getDate() + i));
             return (
-              <DayColumn date={newDate} key={`dayColumn_${i}`} />
+              <DayColumn
+                date={newDate}
+                key={`dayColumn_${i}`}
+                onTimeslotClick={(a, b) => this.toggleModal(a, b)}
+                appointments={appointments}
+              />
             );
           })}
         </div>
+        <AppointmentModal
+          isOpen={isModalOpen}
+          onCancelClick={() => this.toggleModal()}
+          onApproveClick={(e) => addNewAppointment(e)}
+          time={clickedTimeSlotTime}
+          currentUser={currentUser}
+          date={clickedTimeSlotDate}
+        />
       </div>
     );
   }

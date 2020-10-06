@@ -11,11 +11,23 @@ class App extends React.Component {
     super(props);
     this.state = {
       currentUser: 'James',
+      appointments: [],
     };
   }
 
+  componentDidUpdate() {
+    const { appointments } = this.state;
+    console.log(appointments);
+  }
+
+  addNewAppointment(appointment) {
+    const { appointments } = this.state;
+    const newAppointmentsArray = [...appointments, appointment];
+    this.setState({ appointments: newAppointmentsArray });
+  }
+
   render() {
-    const { currentUser } = this.state;
+    const { currentUser, appointments } = this.state;
     return (
       <div className={styles.site_container}>
         <div className={styles.nav_bar_container}>
@@ -32,7 +44,11 @@ class App extends React.Component {
         <div className={styles.content_wrapper}>
           <h1>Hair Saloon Schedule</h1>
           <div className={styles.calendar_container}>
-            <Calendar />
+            <Calendar
+              currentUser={currentUser}
+              addNewAppointment={(e) => this.addNewAppointment(e)}
+              appointments={appointments}
+            />
           </div>
         </div>
       </div>
