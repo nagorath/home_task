@@ -12,13 +12,22 @@ class App extends React.Component {
     super(props);
     this.state = {
       currentUser: 'James',
-      appointments: [...FAKE_APPOINTMENTS],
+      appointments: [],
     };
+  }
+
+  componentDidMount() {
+    const storedAppointments = JSON.parse(localStorage.getItem('appointments'));
+    const appointments = !storedAppointments
+      ? [...FAKE_APPOINTMENTS]
+      : storedAppointments;
+    this.setState({ appointments });
   }
 
   addNewAppointment(appointment) {
     const { appointments } = this.state;
     const newAppointmentsArray = [...appointments, appointment];
+    localStorage.setItem('appointments', JSON.stringify(newAppointmentsArray));
     this.setState({ appointments: newAppointmentsArray });
   }
 
