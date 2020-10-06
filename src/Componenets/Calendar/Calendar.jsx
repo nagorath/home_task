@@ -93,12 +93,14 @@ class Calendar extends React.Component {
           {DAYS.map((day, i) => {
             const currentDateClone = new Date(currentDate.getTime());
             const newDate = new Date(currentDateClone.setDate(currentDateClone.getDate() + i));
+            const filteredAppointments = appointments.filter((app) => app.date === newDate.toDateString());
             return (
               <DayColumn
+                currentUser={currentUser}
                 date={newDate}
                 key={`dayColumn_${i}`}
                 onTimeslotClick={(a, b) => this.toggleModal(a, b)}
-                appointments={appointments}
+                appointments={filteredAppointments}
               />
             );
           })}

@@ -5,19 +5,15 @@ import styles from './App.module.scss';
 import Logo from './static/Logo.png';
 import profilePic from './static/Profile pic.jpg';
 import Calendar from './Componenets/Calendar/Calendar';
+import FAKE_APPOINTMENTS from './Fake data/Appointments';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       currentUser: 'James',
-      appointments: [],
+      appointments: [...FAKE_APPOINTMENTS],
     };
-  }
-
-  componentDidUpdate() {
-    const { appointments } = this.state;
-    console.log(appointments);
   }
 
   addNewAppointment(appointment) {
