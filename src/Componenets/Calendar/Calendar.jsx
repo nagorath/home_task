@@ -105,6 +105,10 @@ class Calendar extends React.Component {
             );
           })}
         </div>
+        <div style={{ marginTop: '10px' }}>
+          <div style={{ marginBottom: '10px', color: '#7BE550', fontSize: '18px' }}>*My Appointments</div>
+          <div style={{ color: '#E55050', fontSize: '18px' }}>*Taken Appointments</div>
+        </div>
         <AppointmentModal
           isOpen={isModalOpen}
           onCancelClick={() => this.toggleModal()}
